@@ -1,4 +1,4 @@
 #pragma once
-#include "../Mesh.h"
+#include "../../rendering/mesh/Mesh.h"
 
 Mesh createGround();

@@ -4,11 +4,11 @@ LDFLAGS = -L/opt/homebrew/lib -lglfw -framework OpenGL
 
 # Core sources - Added Utils.cpp
 SRC = src/main.cpp \
-      src/Camera.cpp \
       src/Shader.cpp \
-      src/Mesh.cpp \
-      src/Utils.cpp \
       src/glad.c \
+      src/utils/Utils.cpp \
+      src/rendering/camera/Camera.cpp \
+      src/rendering/mesh/Mesh.cpp \
       src/objects/land/Land.cpp \
       src/objects/tree/Tree.cpp \
       src/objects/targets/Target.cpp \

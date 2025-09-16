@@ -1,5 +1,5 @@
 #pragma once
-#include "../Mesh.h"
+#include "../../rendering/mesh/Mesh.h"
 #include <glm/glm.hpp>
 
 Mesh createTree();

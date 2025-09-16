@@ -733,8 +733,8 @@
 #include <algorithm>
 
 #include "Shader.h"
-#include "Camera.h"
-#include "Mesh.h"
+#include "rendering/camera/Camera.h"
+#include "rendering/mesh/Mesh.h"
 
 // object headers
 #include "objects/land/Land.h"
