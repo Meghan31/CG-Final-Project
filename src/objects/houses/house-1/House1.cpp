@@ -6,12 +6,14 @@ using namespace std;
 Mesh createHouse1(const glm::vec3& wallColor, const glm::vec3& roofColor) {
     vector<Vertex> vertices;
     vector<unsigned int> indices;
+
+    float sizeC= 2.5f;
     
     // Simple rectangular house - 4m x 3m x 3m
-    float width = 4.0f;
-    float depth = 3.0f;
-    float height = 3.0f;
-    
+    float width = 4.0f *sizeC;
+    float depth = 3.0f *sizeC;
+    float height = 3.0f *sizeC;
+
     // House base vertices (bottom)
     vertices.push_back({{-width/2, 0, -depth/2}, wallColor}); // 0: front left
     vertices.push_back({{ width/2, 0, -depth/2}, wallColor}); // 1: front right
@@ -37,10 +39,12 @@ Mesh createHouse1(const glm::vec3& wallColor, const glm::vec3& roofColor) {
     indices.insert(indices.end(), {0, 1, 2, 2, 3, 0});
     
     // Front wall with door opening
-    float doorWidth = 1.0f;
-    float doorHeight = 2.2f;
-    
-    // Front wall vertices (around door)
+    // float doorWidth = 1.0f * sizeC;
+    float doorWidth = 1.2f ;
+    // float doorHeight = 2.2f * sizeC;
+    float doorHeight = 2.5f ;
+
+    // // Front wall vertices (around door)
     unsigned int frontBase = vertices.size();
     
     // Left side of front wall
@@ -74,7 +78,7 @@ Mesh createHouse1(const glm::vec3& wallColor, const glm::vec3& roofColor) {
     glm::vec3 doorColor(0.4f, 0.2f, 0.1f); // Dark brown
     
     // Door vertices (slightly inset)
-    float doorInset = 0.05f;
+    float doorInset = 0.05f * sizeC;
     vertices.push_back({{-doorWidth/2, 0, -depth/2 + doorInset}, doorColor});     // door bottom left
     vertices.push_back({{ doorWidth/2, 0, -depth/2 + doorInset}, doorColor});     // door bottom right
     vertices.push_back({{ doorWidth/2, doorHeight, -depth/2 + doorInset}, doorColor}); // door top right
@@ -86,7 +90,8 @@ Mesh createHouse1(const glm::vec3& wallColor, const glm::vec3& roofColor) {
     // Door handle
     unsigned int handleBase = vertices.size();
     glm::vec3 handleColor(1.0f, 0.8f, 0.2f); // Gold
-    float handleSize = 0.03f;
+    // float handleSize = 0.03f * sizeC;
+    float handleSize = 0.06f ;
     glm::vec3 handlePos(doorWidth * 0.4f, doorHeight * 0.5f, -depth/2 + doorInset + 0.01f);
     
     // Handle cube
@@ -109,7 +114,7 @@ Mesh createHouse1(const glm::vec3& wallColor, const glm::vec3& roofColor) {
     
     // ROOF (simple triangular)
     unsigned int roofBase = vertices.size();
-    float roofHeight = 1.5f;
+    float roofHeight = 1.5f * sizeC;
     
     vertices.push_back({{-width/2, height, -depth/2}, roofColor}); // front left
     vertices.push_back({{ width/2, height, -depth/2}, roofColor}); // front right

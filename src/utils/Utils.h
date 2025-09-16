@@ -1,5 +1,5 @@
 #pragma once
-#include "Mesh.h"
+#include "../rendering/mesh/Mesh.h"  // FIXED: Use relative path
 #include <vector>
 #include <glm/glm.hpp>
 
