@@ -1,7 +1,8 @@
 #include "Mesh.h"
 #include <glad/glad.h>
+using namespace std;
 
-Mesh::Mesh(const std::vector<Vertex>& verts, const std::vector<unsigned int>& idx)
+Mesh::Mesh(const vector<Vertex>& verts, const vector<unsigned int>& idx)
     : vertices(verts), indices(idx)
 {
     glGenVertexArrays(1, &VAO);
@@ -16,10 +17,11 @@ Mesh::Mesh(const std::vector<Vertex>& verts, const std::vector<unsigned int>& id
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned int), indices.data(), GL_STATIC_DRAW);
 
-    // position
+    // position attribute
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)0);
     glEnableVertexAttribArray(0);
-    // color
+    
+    // color attribute
     glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, Color));
     glEnableVertexAttribArray(1);
 

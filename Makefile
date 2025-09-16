@@ -2,11 +2,12 @@ CXX = clang++
 CXXFLAGS = -std=c++17 -Wall -Wextra -I./src -I./src/glad -I/opt/homebrew/include
 LDFLAGS = -L/opt/homebrew/lib -lglfw -framework OpenGL
 
-# Core sources
+# Core sources - Added Utils.cpp
 SRC = src/main.cpp \
       src/Camera.cpp \
       src/Shader.cpp \
       src/Mesh.cpp \
+      src/Utils.cpp \
       src/glad.c \
       src/objects/Land.cpp \
       src/objects/House.cpp \

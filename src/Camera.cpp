@@ -1,6 +1,7 @@
 #include "Camera.h"
 #include <glm/gtc/matrix_transform.hpp>
 #include <cmath>
+using namespace std;
 
 Camera::Camera(glm::vec3 startPos)
     : Front(glm::vec3(0.0f, 0.0f, -1.0f)),
@@ -9,6 +10,7 @@ Camera::Camera(glm::vec3 startPos)
       Zoom(45.0f)
 {
     Position = startPos;
+    Position.y = 1.8f; // Constrain to eye level
     WorldUp = glm::vec3(0.0f, 1.0f, 0.0f);
     Yaw = -90.0f;
     Pitch = 0.0f;
@@ -20,19 +22,34 @@ glm::mat4 Camera::GetViewMatrix() const {
 }
 
 void Camera::ProcessKeyboard(Camera_Movement direction, float deltaTime) {
-    float velocity = MovementSpeed * (deltaTime>0.0f ? deltaTime : 0.016f);
-    if (direction == FORWARD)
-        Position += Front * velocity;
-    if (direction == BACKWARD)
-        Position -= Front * velocity;
-    if (direction == LEFT)
-        Position -= Right * velocity;
-    if (direction == RIGHT)
-        Position += Right * velocity;
-    if (direction == UP)
+    float velocity = MovementSpeed * (deltaTime > 0.0f ? deltaTime : 0.016f);
+    
+    if (direction == FORWARD) {
+        // Move forward but only on X,Z plane
+        glm::vec3 frontXZ = glm::normalize(glm::vec3(Front.x, 0.0f, Front.z));
+        Position += frontXZ * velocity;
+    }
+    if (direction == BACKWARD) {
+        glm::vec3 frontXZ = glm::normalize(glm::vec3(Front.x, 0.0f, Front.z));
+        Position -= frontXZ * velocity;
+    }
+    if (direction == LEFT) {
+        glm::vec3 rightXZ = glm::normalize(glm::vec3(Right.x, 0.0f, Right.z));
+        Position -= rightXZ * velocity;
+    }
+    if (direction == RIGHT) {
+        glm::vec3 rightXZ = glm::normalize(glm::vec3(Right.x, 0.0f, Right.z));
+        Position += rightXZ * velocity;
+    }
+    if (direction == UP) {
         Position += WorldUp * velocity;
-    if (direction == DOWN)
+    }
+    if (direction == DOWN) {
         Position -= WorldUp * velocity;
+    }
+    
+    // Always constrain to ground level (eye height)
+    Position.y = 1.8f;
 }
 
 void Camera::ProcessMouseMovement(float xoffset, float yoffset, bool constrainPitch) {
