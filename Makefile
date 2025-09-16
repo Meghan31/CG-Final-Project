@@ -9,10 +9,12 @@ SRC = src/main.cpp \
       src/Mesh.cpp \
       src/Utils.cpp \
       src/glad.c \
-      src/objects/Land.cpp \
-      src/objects/House.cpp \
-      src/objects/Tree.cpp \
-      src/objects/Target.cpp
+      src/objects/land/Land.cpp \
+      src/objects/tree/Tree.cpp \
+      src/objects/targets/Target.cpp \
+      src/objects/houses/house-1/House1.cpp \
+      src/objects/houses/house-2/House2.cpp \
+      src/objects/houses/house-3/House3.cpp
 
 OBJ = $(SRC:.cpp=.o)
 

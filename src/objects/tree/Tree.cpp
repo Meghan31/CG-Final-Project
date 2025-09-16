@@ -13,27 +13,34 @@ Mesh createTreeVariant(float heightScale, float foliageScale, const glm::vec3& l
     vector<Vertex> vertices;
     vector<unsigned int> indices;
 
-    float trunkHeight = 1.2f * heightScale;
-    float foliageHeight = 1.5f * heightScale * foliageScale;
+    // CHANGED: Adjust trunk proportions - reduce width by 25%, increase height by 25%
+    float overallScale = 1.5f;  
+    float trunkHeight = 1.5f * heightScale * overallScale;  // Increased from 1.2f to 1.5f (25% height increase)
+    float foliageHeight = 3.0f * heightScale * foliageScale * overallScale;
     
-    // TRUNK - Create cylindrical trunk (8-sided)
-    int trunkSides = 8;
-    float trunkRadius = 0.15f;
+    // TRUNK - Create realistic irregular trunk (12-sided with varying radius)
+    int trunkSides = 12;  // More sides for smoother appearance
+    float baseRadius = 0.6f * overallScale;  // Reduced from 0.8f to 0.6f (25% width reduction)
+    float topRadius = 0.375f * overallScale; // Reduced from 0.5f to 0.375f (25% width reduction)
     glm::vec3 trunkColor(0.4f, 0.25f, 0.1f);
     
-    // Bottom circle of trunk
+    // Bottom circle of trunk with irregular shape
     for (int i = 0; i < trunkSides; ++i) {
         float angle = 2.0f * M_PI * i / trunkSides;
-        float x = trunkRadius * cos(angle);
-        float z = trunkRadius * sin(angle);
+        // Add irregularity to make it look like a real trunk - adjusted for medium radius
+        float radiusVariation = baseRadius + 0.15f * sin(angle * 3.0f) + 0.075f * cos(angle * 7.0f);  // Reduced variation for smaller trunk
+        float x = radiusVariation * cos(angle);
+        float z = radiusVariation * sin(angle);
         vertices.push_back({{x, 0.0f, z}, trunkColor});
     }
     
-    // Top circle of trunk
+    // Top circle of trunk with different irregular shape (tapered)
     for (int i = 0; i < trunkSides; ++i) {
         float angle = 2.0f * M_PI * i / trunkSides;
-        float x = trunkRadius * cos(angle);
-        float z = trunkRadius * sin(angle);
+        // Different irregularity pattern for top + tapering - adjusted for medium radius
+        float radiusVariation = topRadius + 0.075f * sin(angle * 4.0f) + 0.045f * cos(angle * 6.0f);  // Reduced variation for smaller trunk
+        float x = radiusVariation * cos(angle);
+        float z = radiusVariation * sin(angle);
         vertices.push_back({{x, trunkHeight, z}, trunkColor});
     }
     
@@ -59,7 +66,7 @@ Mesh createTreeVariant(float heightScale, float foliageScale, const glm::vec3& l
     // Create layered foliage (like stacked hexagons getting smaller)
     for (int layer = 0; layer < foliageLayers; ++layer) {
         float layerHeight = trunkHeight + (layer * foliageHeight / foliageLayers);
-        float layerRadius = (1.2f - 0.3f * layer) * foliageScale; // Tapers from 1.2 to 0.3
+        float layerRadius = (2.4f - 0.6f * layer) * foliageScale * overallScale; // Larger foliage, tapers from 2.4 to 0.6
         
         // Vary the green shade slightly per layer for organic look
         glm::vec3 layerColor = leafColor;
