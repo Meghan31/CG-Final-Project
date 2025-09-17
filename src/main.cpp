@@ -538,7 +538,7 @@ int main()
 
     glEnable(GL_DEPTH_TEST);
 
-    Shader shader("shaders/basic.vert", "shaders/basic.frag");
+    Shader shader("shaders/basic.vs", "shaders/basic.fs");
 
     // Create base meshes
     Mesh landMesh = createGround();

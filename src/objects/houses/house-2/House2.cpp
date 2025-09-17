@@ -76,7 +76,7 @@ Mesh createHouse2(const glm::vec3& wallColor, const glm::vec3& roofColor) {
     // DOOR - SCALED UP
     unsigned int doorBase = vertices.size();
     glm::vec3 doorColor(0.3f, 0.15f, 0.05f);
-    float doorInset = 0.125f; // was 0.05f, now 0.05f * 2.5 = 0.125f
+    float doorInset = 0.05f; // was 0.05f, now 0.05f * 2.5 = 0.125f
     
     vertices.push_back({{doorStart, 0, footprint[0].z + doorInset}, doorColor});
     vertices.push_back({{doorEnd, 0, footprint[0].z + doorInset}, doorColor});
