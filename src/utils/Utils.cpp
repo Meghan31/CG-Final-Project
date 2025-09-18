@@ -1,3 +1,4 @@
+// Utility to extrude a 2D footprint into a 3D prism and build an indexed mesh.
 #include "Utils.h"
 using namespace std;
 
@@ -8,17 +9,17 @@ Mesh buildExtrudedIndexed(const vector<glm::vec3>& footprint, float height, cons
 
     int n = (int)footprint.size();
     
-    // Bottom vertices (at y=0)
+    // Bottom ring of vertices (at y=0)
     for (int i = 0; i < n; ++i) {
         verts.push_back({ footprint[i], color });
     }
 
-    // Top vertices (at y=height)
+    // Top ring of vertices (at y=height)
     for (int i = 0; i < n; ++i) {
         verts.push_back({ glm::vec3(footprint[i].x, height, footprint[i].z), color });
     }
 
-    // Create side faces (rectangular faces between bottom and top)
+    // Create side faces (each side is two triangles making a rectangle)
     for (int i = 0; i < n; ++i) {
         int next = (i + 1) % n;
         
@@ -34,14 +35,14 @@ Mesh buildExtrudedIndexed(const vector<glm::vec3>& footprint, float height, cons
         idx.push_back(next);
     }
 
-    // Bottom face (triangulated as fan from vertex 0)
+    // Bottom face (simple triangle fan around the first vertex)
     for (int i = 1; i < n - 1; ++i) {
         idx.push_back(0);        // center vertex
         idx.push_back(i + 1);    // next vertex
         idx.push_back(i);        // current vertex
     }
 
-    // Top face (triangulated as fan from vertex n)
+    // Top face (triangle fan around the first top vertex)
     for (int i = 1; i < n - 1; ++i) {
         idx.push_back(n);        // center vertex (top)
         idx.push_back(n + i);    // current vertex (top)

@@ -1,4 +1,4 @@
-// House3.h
+// Bigger square house with a hip roof (type 3)
 #pragma once
 #include "../../../rendering/mesh/Mesh.h"
 #include <glm/glm.hpp>

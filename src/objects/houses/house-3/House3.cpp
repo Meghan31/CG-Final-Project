@@ -1,3 +1,5 @@
+// House type 3: a larger square house with a hip-style roof and a door.
+// This one is scaled up to look bigger than the others.
 #include "House3.h"
 #include <glm/glm.hpp>
 #include <vector>
@@ -7,16 +9,16 @@ Mesh createHouse3(const glm::vec3& wallColor, const glm::vec3& roofColor) {
     vector<Vertex> vertices;
     vector<unsigned int> indices;
     
-    // Square house with front porch - SCALED UP 2.5x
+    // Square house - SCALED UP ~2.5x so it feels different from the others
     float houseSize = 7.5f;     // was 3.0f, now 3.0f * 2.5 = 7.5f
-    float porchDepth = 2.5f;    // was 1.0f, now 1.0f * 2.5 = 2.5f
+    // float porchDepth = 2.5f;    // was 1.0f, now 1.0f * 2.5 = 2.5f
     float height = 7.5f;        // was 3.0f, now 3.0f * 2.5 = 7.5f
-    float porchHeight = 6.25f;  // was 2.5f, now 2.5f * 2.5 = 6.25f
+    // float porchHeight = 6.25f;  // was 2.5f, now 2.5f * 2.5 = 6.25f
     
-    // MAIN HOUSE (square)
+    // MAIN HOUSE (square body)
     unsigned int houseBase = vertices.size();
     
-    // House base vertices
+    // House base vertices (front at z=0, back at z=houseSize)
     vertices.push_back({{-houseSize/2, 0, 0}, wallColor});              // 0: front left
     vertices.push_back({{ houseSize/2, 0, 0}, wallColor});              // 1: front right
     vertices.push_back({{ houseSize/2, 0, houseSize}, wallColor});      // 2: back right
@@ -28,7 +30,7 @@ Mesh createHouse3(const glm::vec3& wallColor, const glm::vec3& roofColor) {
     vertices.push_back({{ houseSize/2, height, houseSize}, wallColor}); // 6: back right top
     vertices.push_back({{-houseSize/2, height, houseSize}, wallColor}); // 7: back left top
     
-    // House walls (except front wall)
+    // House walls (except front wall where the door goes)
     // Back wall
     indices.insert(indices.end(), {houseBase+2, houseBase+3, houseBase+7, houseBase+7, houseBase+6, houseBase+2});
     // Left wall
@@ -40,7 +42,7 @@ Mesh createHouse3(const glm::vec3& wallColor, const glm::vec3& roofColor) {
     // Bottom
     indices.insert(indices.end(), {houseBase+0, houseBase+1, houseBase+2, houseBase+2, houseBase+3, houseBase+0});
     
-    // FRONT WALL with door opening - SCALED UP
+    // FRONT WALL with door opening
     // float doorWidth = 2.5f;   // was 1.0f, now 1.0f * 2.5 = 2.5f
     float doorWidth = 1.9f ;   // was 1.0f, now 1.0f * 2.5 = 2.5f
     // float doorHeight = 5.5f;  // was 2.2f, now 2.2f * 2.5 = 5.5f
@@ -69,39 +71,36 @@ Mesh createHouse3(const glm::vec3& wallColor, const glm::vec3& roofColor) {
     indices.insert(indices.end(), {frontBase+4, frontBase+5, frontBase+6, frontBase+6, frontBase+7, frontBase+4});
     indices.insert(indices.end(), {frontBase+8, frontBase+9, frontBase+10, frontBase+10, frontBase+11, frontBase+8});
     
-    // PORCH - SCALED UP
-    unsigned int porchBase = vertices.size();
-    glm::vec3 porchColor = wallColor * 0.9f; // Slightly darker
+    // // PORCH (disabled for now)
+    // unsigned int porchBase = vertices.size();
+    // glm::vec3 porchColor = wallColor * 0.9f; // Slightly darker
     
-    // Porch floor - SCALED UP
-    vertices.push_back({{-houseSize/2, 0.25f, 0}, porchColor});               // floor back left (was 0.1f, now 0.25f)
-    vertices.push_back({{ houseSize/2, 0.25f, 0}, porchColor});               // floor back right
-    vertices.push_back({{ houseSize/2, 0.25f, -porchDepth}, porchColor});     // floor front right
-    vertices.push_back({{-houseSize/2, 0.25f, -porchDepth}, porchColor});     // floor front left
+    // // Porch floor - SCALED UP
+    // vertices.push_back({{-houseSize/2, 0.25f, 0}, porchColor});               // floor back left (was 0.1f, now 0.25f)
+    // vertices.push_back({{ houseSize/2, 0.25f, 0}, porchColor});               // floor back right
+    // vertices.push_back({{ houseSize/2, 0.25f, -porchDepth}, porchColor});     // floor front right
+    // vertices.push_back({{-houseSize/2, 0.25f, -porchDepth}, porchColor});     // floor front left
     
-    // Porch floor triangles
-    indices.insert(indices.end(), {porchBase+0, porchBase+1, porchBase+2, porchBase+2, porchBase+3, porchBase+0});
+    // // Porch floor triangles
+    // indices.insert(indices.end(), {porchBase+0, porchBase+1, porchBase+2, porchBase+2, porchBase+3, porchBase+0});
     
-    // Porch columns (simple) - SCALED UP
-    for (int i = 0; i < 2; ++i) {
-        float x = (i == 0) ? -houseSize/2 + 0.5f : houseSize/2 - 0.5f; // was 0.2f, now 0.5f
-        unsigned int colBase = vertices.size();
-        
-        float colSize = 0.25f; // was 0.1f, now 0.1f * 2.5 = 0.25f
-        // Column base
-        vertices.push_back({{x - colSize, 0.25f, -porchDepth + 0.5f}, porchColor}); // was 0.2f, now 0.5f
-        vertices.push_back({{x + colSize, 0.25f, -porchDepth + 0.5f}, porchColor});
-        vertices.push_back({{x + colSize, porchHeight, -porchDepth + 0.5f}, porchColor});
-        vertices.push_back({{x - colSize, porchHeight, -porchDepth + 0.5f}, porchColor});
-        
-        // Simple column face
-        indices.insert(indices.end(), {colBase+0, colBase+1, colBase+2, colBase+2, colBase+3, colBase+0});
-    }
+    // Porch columns (disabled as requested)
+    // for (int i = 0; i < 2; ++i) {
+    //     float x = (i == 0) ? -houseSize/2 + 0.5f : houseSize/2 - 0.5f;
+    //     unsigned int colBase = vertices.size();
+    //     float colSize = 0.25f;
+    //     vertices.push_back({{x - colSize, 0.25f, -porchDepth + 0.5f}, porchColor});
+    //     vertices.push_back({{x + colSize, 0.25f, -porchDepth + 0.5f}, porchColor});
+    //     vertices.push_back({{x + colSize, porchHeight, -porchDepth + 0.5f}, porchColor});
+    //     vertices.push_back({{x - colSize, porchHeight, -porchDepth + 0.5f}, porchColor});
+    //     indices.insert(indices.end(), {colBase+0, colBase+1, colBase+2, colBase+2, colBase+3, colBase+0});
+    // }
     
-    // DOOR - SCALED UP
+    // DOOR (slightly in front so it doesn't clip into the wall)
     unsigned int doorBase = vertices.size();
     glm::vec3 doorColor(0.5f, 0.25f, 0.1f);
-    float doorInset = 0.125f; // was 0.05f, now 0.05f * 2.5 = 0.125f
+    // Ensure the door sits on the front wall plane (slightly outward toward the porch)
+    float doorInset = -0.05f; // slightly negative Z to place in front of wall
     
     vertices.push_back({{-doorWidth/2, 0, doorInset}, doorColor});
     vertices.push_back({{ doorWidth/2, 0, doorInset}, doorColor});
@@ -115,7 +114,8 @@ Mesh createHouse3(const glm::vec3& wallColor, const glm::vec3& roofColor) {
     glm::vec3 handleColor(1.0f, 0.8f, 0.2f);
     // float handleSize = 0.075f; // was 0.03f, now 0.03f * 2.5 = 0.075f
     float handleSize = 0.065f ;
-    glm::vec3 handlePos(doorWidth * 0.4f, doorHeight * 0.5f, doorInset + 0.025f); // was 0.01f, now 0.025f
+    // Handle protrudes outward (further toward negative Z)
+    glm::vec3 handlePos(doorWidth * 0.4f, doorHeight * 0.5f, doorInset - 0.025f); // was 0.01f, now 0.025f
     
     for (int i = 0; i < 8; ++i) {
         float x = handlePos.x + (i & 1 ? handleSize : -handleSize);
@@ -131,7 +131,7 @@ Mesh createHouse3(const glm::vec3& wallColor, const glm::vec3& roofColor) {
         indices.push_back(handleBase + idx);
     }
     
-    // ROOF (hip roof style) - SCALED UP
+    // ROOF (hip roof style that meets at a center ridge)
     unsigned int roofBase = vertices.size();
     float roofHeight = 3.75f; // was 1.5f, now 1.5f * 2.5 = 3.75f
     

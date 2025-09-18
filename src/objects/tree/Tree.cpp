@@ -1,3 +1,4 @@
+// Tree mesh: trunk + layered foliage. Variant lets me change scale and leaf color.
 #include "Tree.h"
 #include <glm/glm.hpp>
 #include <vector>
@@ -5,7 +6,7 @@
 using namespace std;
 
 Mesh createTree() {
-    // Default tree (will be varied in main.cpp)
+    // Default tree values that look decent
     return createTreeVariant(1.0f, 1.0f, glm::vec3(0.0f, 0.7f, 0.0f));
 }
 
@@ -13,12 +14,12 @@ Mesh createTreeVariant(float heightScale, float foliageScale, const glm::vec3& l
     vector<Vertex> vertices;
     vector<unsigned int> indices;
 
-    // CHANGED: Adjust trunk proportions - reduce width by 25%, increase height by 25%
+    // Trunk proportions chosen to look a bit taller and thinner
     float overallScale = 1.5f;  
     float trunkHeight = 1.5f * heightScale * overallScale;  // Increased from 1.2f to 1.5f (25% height increase)
     float foliageHeight = 3.0f * heightScale * foliageScale * overallScale;
     
-    // TRUNK - Create realistic irregular trunk (12-sided with varying radius)
+    // TRUNK - 12-sided cylinder with small irregularities so it looks more organic
     int trunkSides = 12;  // More sides for smoother appearance
     float baseRadius = 0.6f * overallScale;  // Reduced from 0.8f to 0.6f (25% width reduction)
     float topRadius = 0.375f * overallScale; // Reduced from 0.5f to 0.375f (25% width reduction)
@@ -58,7 +59,7 @@ Mesh createTreeVariant(float heightScale, float foliageScale, const glm::vec3& l
         indices.push_back(next);
     }
     
-    // FOLIAGE - Create organic cone-like foliage with multiple layers
+    // FOLIAGE - stacked layers that get smaller towards the top (cone-ish)
     int foliageSides = 6;
     int foliageLayers = 4;
     unsigned int foliageBaseIndex = vertices.size();

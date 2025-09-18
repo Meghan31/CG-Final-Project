@@ -1,3 +1,4 @@
+// First-person camera with WASD movement and mouse look.
 #pragma once
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
@@ -27,11 +28,11 @@ public:
     float MouseSensitivity;
     float Zoom;
 
-    Camera(glm::vec3 startPos = glm::vec3(0.0f, 0.0f, 3.0f));
+    Camera(glm::vec3 startPos = glm::vec3(0.0f, 0.0f, 3.0f)); // start position in world
 
-    glm::mat4 GetViewMatrix() const;
+    glm::mat4 GetViewMatrix() const; // build a lookAt matrix
 
-    // input
+    // input helpers
     void ProcessKeyboard(Camera_Movement direction, float deltaTime);
     void ProcessMouseMovement(float xoffset, float yoffset, bool constrainPitch = true);
     void ProcessMouseScroll(float yoffset);

@@ -1,3 +1,5 @@
+// House type 1: a simple box house with a triangular roof and a door.
+// I'm building the mesh by pushing vertices and triangle indices by hand.
 #include "House1.h"
 #include <glm/glm.hpp>
 #include <vector>
@@ -7,26 +9,26 @@ Mesh createHouse1(const glm::vec3& wallColor, const glm::vec3& roofColor) {
     vector<Vertex> vertices;
     vector<unsigned int> indices;
 
-    float sizeC= 2.5f;
+    float sizeC= 2.5f; // quick scale so I can make the whole house bigger
     
     // Simple rectangular house - 4m x 3m x 3m
     float width = 4.0f *sizeC;
     float depth = 3.0f *sizeC;
     float height = 3.0f *sizeC;
 
-    // House base vertices (bottom)
+    // House base vertices (bottom corners of the box)
     vertices.push_back({{-width/2, 0, -depth/2}, wallColor}); // 0: front left
     vertices.push_back({{ width/2, 0, -depth/2}, wallColor}); // 1: front right
     vertices.push_back({{ width/2, 0,  depth/2}, wallColor}); // 2: back right
     vertices.push_back({{-width/2, 0,  depth/2}, wallColor}); // 3: back left
     
-    // House top vertices
+    // House top vertices (same XZ but y=height)
     vertices.push_back({{-width/2, height, -depth/2}, wallColor}); // 4: front left top
     vertices.push_back({{ width/2, height, -depth/2}, wallColor}); // 5: front right top
     vertices.push_back({{ width/2, height,  depth/2}, wallColor}); // 6: back right top
     vertices.push_back({{-width/2, height,  depth/2}, wallColor}); // 7: back left top
     
-    // House walls (without front wall where door will be)
+    // House walls (I skip the front because the door cuts a hole there)
     // Back wall
     indices.insert(indices.end(), {2, 3, 7, 7, 6, 2});
     // Left wall  
@@ -38,7 +40,7 @@ Mesh createHouse1(const glm::vec3& wallColor, const glm::vec3& roofColor) {
     // Bottom
     indices.insert(indices.end(), {0, 1, 2, 2, 3, 0});
     
-    // Front wall with door opening
+    // Front wall with door opening (I split it into left, right, and above-door)
     // float doorWidth = 1.0f * sizeC;
     float doorWidth = 1.2f ;
     // float doorHeight = 2.2f * sizeC;
@@ -73,12 +75,12 @@ Mesh createHouse1(const glm::vec3& wallColor, const glm::vec3& roofColor) {
     // Top above door
     indices.insert(indices.end(), {frontBase+8, frontBase+9, frontBase+10, frontBase+10, frontBase+11, frontBase+8});
     
-    // DOOR
+    // DOOR (slightly in front of the wall so it doesn't z-fight)
     unsigned int doorBase = vertices.size();
     glm::vec3 doorColor(0.4f, 0.2f, 0.1f); // Dark brown
     
-    // Door vertices (slightly inset)
-    float doorInset = 0.05f * sizeC;
+    // Door vertices: ensure door sits on the exterior of the front wall (slightly outward)
+    float doorInset = -0.05f * sizeC;
     vertices.push_back({{-doorWidth/2, 0, -depth/2 + doorInset}, doorColor});     // door bottom left
     vertices.push_back({{ doorWidth/2, 0, -depth/2 + doorInset}, doorColor});     // door bottom right
     vertices.push_back({{ doorWidth/2, doorHeight, -depth/2 + doorInset}, doorColor}); // door top right
@@ -87,12 +89,13 @@ Mesh createHouse1(const glm::vec3& wallColor, const glm::vec3& roofColor) {
     // Door face
     indices.insert(indices.end(), {doorBase+0, doorBase+1, doorBase+2, doorBase+2, doorBase+3, doorBase+0});
     
-    // Door handle
+    // Door handle (a tiny cube so the door looks more real)
     unsigned int handleBase = vertices.size();
     glm::vec3 handleColor(1.0f, 0.8f, 0.2f); // Gold
     // float handleSize = 0.03f * sizeC;
     float handleSize = 0.06f ;
-    glm::vec3 handlePos(doorWidth * 0.4f, doorHeight * 0.5f, -depth/2 + doorInset + 0.01f);
+    // Handle should protrude outward from the door (further toward negative Z)
+    glm::vec3 handlePos(doorWidth * 0.4f, doorHeight * 0.5f, -depth/2 + doorInset - 0.02f);
     
     // Handle cube
     vertices.push_back({{handlePos.x - handleSize, handlePos.y - handleSize, handlePos.z - handleSize}, handleColor});
@@ -112,7 +115,7 @@ Mesh createHouse1(const glm::vec3& wallColor, const glm::vec3& roofColor) {
         indices.push_back(handleBase + idx);
     }
     
-    // ROOF (simple triangular)
+    // ROOF (simple tent/triangular shape that meets at one peak)
     unsigned int roofBase = vertices.size();
     float roofHeight = 1.5f * sizeC;
     
