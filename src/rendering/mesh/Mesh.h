@@ -1,3 +1,5 @@
+// AI Generated Code
+
 // A Mesh is just a list of vertices + indices stored on the GPU.
 // Vertex has a position and a color (no normals/UVs for this project).
 #pragma once

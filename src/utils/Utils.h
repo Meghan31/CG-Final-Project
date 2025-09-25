@@ -1,3 +1,5 @@
+// Written by Megha
+
 // Helpers for building meshes.
 #pragma once
 #include "../rendering/mesh/Mesh.h"  // relative path into Mesh

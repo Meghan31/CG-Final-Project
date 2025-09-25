@@ -6,7 +6,7 @@
 ###############################################################################
 
 # Executable name
-EXE ?= hw3
+EXE ?= hw4
 
 # Compilers (override from environment if desired)
 CC  ?= cc

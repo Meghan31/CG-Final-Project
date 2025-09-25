@@ -1,3 +1,7 @@
+// Written by Megha with the help of House1.cpp
+
+// For now only using this for house2, later can be used for other buildings box shaped objects (Like parts of a Car, Enemy bodyhit box, etc)
+
 // Utility to extrude a 2D footprint into a 3D prism and build an indexed mesh.
 #include "Utils.h"
 using namespace std;

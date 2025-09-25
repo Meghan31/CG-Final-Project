@@ -1,3 +1,7 @@
+// Written by Megha
+
+// Later will be using Utils to Change it into a closed terrain
+
 // Ground plane: just a big green quad at y=0 that everything sits on.
 #include "Land.h"
 #include <vector>

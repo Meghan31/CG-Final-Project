@@ -1,3 +1,7 @@
+// All of this code was written by Megha and used House1.cpp as a reference for style and structure (Almost same except Size and Shape are different).
+
+// Tried Porch style for this house, but is was not successful, but still kept the code for future reference.
+
 // House type 3: a larger square house with a hip-style roof and a door.
 // This one is scaled up to look bigger than the others.
 #include "House3.h"

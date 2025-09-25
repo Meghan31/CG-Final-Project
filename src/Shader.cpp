@@ -1,3 +1,6 @@
+// Standard Shader class for loading GLSL files and compiling them into a shader program.
+// Used learnopengl.com for reference and Generated the Code with AI 
+
 // This class loads my GLSL files, compiles them, and links them into a shader program.
 // I call use() before drawing so OpenGL knows which shader to run.
 #include "Shader.h"

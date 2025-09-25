@@ -1,3 +1,8 @@
+// Satnderd Boiler plate code used learnopengl.com and AI to Generate Code (changed very few parts of it)
+
+// Standard Camera class for 3D navigation, Changed it according to my needs as a first-person controller 
+// Used FPP rules for movement and mouse look
+
 // Simple first-person style camera. I keep y at eye height and move on the XZ plane.
 #include "Camera.h"
 #include <glm/gtc/matrix_transform.hpp>

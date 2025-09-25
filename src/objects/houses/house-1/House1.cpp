@@ -1,3 +1,5 @@
+// Most of this code was written by Megha and used AI to help generate parts of 'DOOR'
+
 // House type 1: a simple box house with a triangular roof and a door.
 // I'm building the mesh by pushing vertices and triangle indices by hand.
 #include "House1.h"
@@ -28,7 +30,9 @@ Mesh createHouse1(const glm::vec3& wallColor, const glm::vec3& roofColor) {
     vertices.push_back({{ width/2, height,  depth/2}, wallColor}); // 6: back right top
     vertices.push_back({{-width/2, height,  depth/2}, wallColor}); // 7: back left top
     
-    // House walls (I skip the front because the door cuts a hole there)
+    // House walls (two triangles each) (I skip the front because the door cuts a hole there)
+    // Front wall
+    // indices.insert(indices.end(), {0, 1, 5, 5, 4, 0});
     // Back wall
     indices.insert(indices.end(), {2, 3, 7, 7, 6, 2});
     // Left wall  
@@ -40,6 +44,9 @@ Mesh createHouse1(const glm::vec3& wallColor, const glm::vec3& roofColor) {
     // Bottom
     indices.insert(indices.end(), {0, 1, 2, 2, 3, 0});
     
+
+
+    // AI GENERATED But changed it most part of it, So It would fit well with the house
     // Front wall with door opening (I split it into left, right, and above-door)
     // float doorWidth = 1.0f * sizeC;
     float doorWidth = 1.2f ;
@@ -115,6 +122,8 @@ Mesh createHouse1(const glm::vec3& wallColor, const glm::vec3& roofColor) {
         indices.push_back(handleBase + idx);
     }
     
+
+    // Written by Megha
     // ROOF (simple tent/triangular shape that meets at one peak)
     unsigned int roofBase = vertices.size();
     float roofHeight = 1.5f * sizeC;
@@ -124,7 +133,7 @@ Mesh createHouse1(const glm::vec3& wallColor, const glm::vec3& roofColor) {
     vertices.push_back({{ width/2, height,  depth/2}, roofColor}); // back right
     vertices.push_back({{-width/2, height,  depth/2}, roofColor}); // back left
     vertices.push_back({{0, height + roofHeight, 0}, roofColor});  // roof peak
-    
+
     // Roof triangles
     indices.insert(indices.end(), {roofBase+0, roofBase+1, roofBase+4}); // front
     indices.insert(indices.end(), {roofBase+1, roofBase+2, roofBase+4}); // right

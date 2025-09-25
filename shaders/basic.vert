@@ -1,3 +1,5 @@
+// AI Generated Code
+
 // Vertex shader: transforms each vertex from model space to clip space.
 #version 330 core
 layout (location = 0) in vec3 aPos;

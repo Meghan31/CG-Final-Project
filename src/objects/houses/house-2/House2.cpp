@@ -1,3 +1,5 @@
+// All of this code was written by Megha and used House1.cpp as a reference for style and structure.
+
 // House type 2: a simple cabin made by extruding a rectangle and adding a flat roof.
 // I used a helper to extrude the footprint to keep this file short.
 #include "House2.h"
@@ -23,7 +25,7 @@ Mesh createHouse2(const glm::vec3& wallColor, const glm::vec3& roofColor) {
         {-width/2, 0,  depth/2}   // Back left
     };
     
-    // Create cabin body by extruding the 2D footprint to a 3D shape
+    // Create cabin body by extruding the 2D footprint to a 3D shape using our utility function
     Mesh bodyMesh = buildExtrudedIndexed(footprint, height, wallColor);
     vector<Vertex> bodyVertices = bodyMesh.getVertices();
     vector<unsigned int> bodyIndices = bodyMesh.getIndices();

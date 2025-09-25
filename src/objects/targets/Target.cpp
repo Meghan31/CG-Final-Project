@@ -1,3 +1,6 @@
+// Most of the Board Portion of the code is AI Generated
+// Stand (black pole) was hand-coded by me
+
 // Archery-style target: a pole plus a circular board with colored rings.
 #include "Target.h"
 #include <glm/glm.hpp>
@@ -9,6 +12,7 @@ Mesh createTarget() {
     vector<Vertex> vertices;
     vector<unsigned int> indices;
 
+    // Written by Megha
     // Stand (black pole) - a simple box so the target has something to sit on
     float sw = 0.08f, sh = 1.2f, sd = 0.08f;
     glm::vec3 standColor(0.1f, 0.1f, 0.1f);
@@ -51,7 +55,10 @@ Mesh createTarget() {
     // Create vertical target board (upright on XY plane)
     // Front surface of the target: I go ring by ring from outside to inside
     vertices.push_back({{0.0f, yCenter, zPos}, ringColors[rings-1]}); // Center point
-    
+
+
+    // AI Generated but refactored it such that it wont go front on eachothers faces
+
     // Create rings from outside to inside for front surface
     for (int ring = 0; ring < rings; ++ring) {
         float outerRadius = boardRadius * (rings - ring) / rings;
@@ -74,6 +81,9 @@ Mesh createTarget() {
         }
     }
     
+    // Written by Megha
+    // refactored the above code to create a back surface with thickness
+
     // Back surface of the target (same rings but a little behind to give thickness)
     float backZ = zPos - boardThickness;
     unsigned int backBaseIndex = vertices.size();
@@ -98,7 +108,8 @@ Mesh createTarget() {
             }
         }
     }
-    
+    // AI Generated Code
+    // changed little parts of it look like a target not a flat disc
     // Indices for front surface (center fan for the innermost ring, quads for others)
     unsigned int currentIndex = boardBaseIndex + 1; // Start after center point
     
@@ -131,6 +142,8 @@ Mesh createTarget() {
         }
     }
     
+    // Written by Megha
+    // refactored the above code to create a back surface with thickness
     // Indices for back surface (reverse winding so the back faces the right way)
     currentIndex = backBaseIndex + 1;
     
@@ -161,8 +174,9 @@ Mesh createTarget() {
             currentIndex += (circleSegments + 1) * 2;
         }
     }
-    
-    // Side faces around the outer edge so the board looks like a thin cylinder
+
+    //Written by Megha
+    // So that the side faces around the outer edge so the board looks like a thin cylinder
     for (int i = 0; i < circleSegments; ++i) {
         // Get the outermost ring vertices
         unsigned int frontOuter1 = boardBaseIndex + 1 + i * 2;

@@ -31,7 +31,9 @@ make            # builds the project using detected platform settings
 
 ## Time Spent
 
-Approximate total time spent: ~4 Days (coding + testing + documentation).
+Approximate total time spent: ~1 Days (coding + testing + documentation).
+
+Changed all the files with comments
 
 ## Why Using GLM GLFW GLAD?
 

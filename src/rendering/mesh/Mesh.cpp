@@ -1,3 +1,5 @@
+// Used learnopengl.com for reference and Generated the Code with AI according to the needs of the project
+
 // Mesh holds the GPU buffers (VAO/VBO/EBO) and knows how to draw itself.
 #include "Mesh.h"
 #include <glad/glad.h>

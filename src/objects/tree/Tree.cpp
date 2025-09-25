@@ -1,3 +1,7 @@
+// Started with a Cone on top of a Cylinder
+// with AI assistance changed to a tree with irregular Leaves(top foliage)
+// Irregular trunk was hand-coded using the Target.cpp as reference 
+
 // Tree mesh: trunk + layered foliage. Variant lets me change scale and leaf color.
 #include "Tree.h"
 #include <glm/glm.hpp>
@@ -16,7 +20,7 @@ Mesh createTreeVariant(float heightScale, float foliageScale, const glm::vec3& l
 
     // Trunk proportions chosen to look a bit taller and thinner
     float overallScale = 1.5f;  
-    float trunkHeight = 1.5f * heightScale * overallScale;  // Increased from 1.2f to 1.5f (25% height increase)
+    float trunkHeight = 1.5f * heightScale * overallScale;  
     float foliageHeight = 3.0f * heightScale * foliageScale * overallScale;
     
     // TRUNK - 12-sided cylinder with small irregularities so it looks more organic
