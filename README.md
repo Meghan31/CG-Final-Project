@@ -14,17 +14,6 @@ You can walk around with WASD + mouse, explore houses/trees/targets placed rando
 - Mouse: look around
 - ESC: quit
 
-## Project layout (key parts)
-
-- `src/main.cpp` — program entry, window/init, random placement, render loop
-- `src/rendering/mesh/*` — Mesh abstraction
-- `src/rendering/camera/*` — First‑person camera
-- `src/objects/*` — houses, tree, target, land
-- `src/utils/Utils.*` — geometry helper (extrusion)
-- `shaders/basic.vert/.frag` — basic vertex/fragment shaders (color only)
-- `src/glad.c`, `src/glad/glad.h`, `src/KHR/khrplatform.h` — GLAD loader (do not edit)
-- `Makefile` — cross‑platform build with OS detection and pkg‑config
-
 ## Build: prerequisites by platform
 
 You need a C/C++ toolchain, GLFW, and GLM.
@@ -37,9 +26,12 @@ From the project root:
 
 ```bash
 make            # builds the project using detected platform settings
-./hw3           # run on macOS/Linux
-# On Windows (MSYS2), the executable will be hw3.exe; run: ./hw3.exe
+./hw3           # runs the assignment
 ```
+
+## Time Spent
+
+Approximate total time spent: ~4 Days (coding + testing + documentation).
 
 ## Why Using GLM GLFW GLAD?
 
