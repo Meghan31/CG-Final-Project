@@ -56,3 +56,7 @@ Why: Header‑only, zero runtime dependency, and mirrors GLSL types and function
 Why not others:
 Eigen/Armadillo: Powerful linear algebra libs but heavier and not GLSL‑style; more than we need.
 Hand‑written math: Reinventing wheels and easy to get wrong; GLM is tested and idiomatic for OpenGL.
+
+---
+
+_Visit my portfolio at [meghan31.me](https://meghan31.me)_
